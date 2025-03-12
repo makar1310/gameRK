@@ -190,13 +190,24 @@
             block.style.backgroundImage = `url('${newImage}')`;
         }
 
+        let tapTimeout = null;
+
         document.querySelectorAll('.image-block').forEach(block => {
-            block.addEventListener('dblclick', () => {
+            block.addEventListener('touchend', (event) => {
                 const blockNumber = block.id.split('-')[1];
-                if (blockNumber <= 12) {
-                    toggleBackground(blockNumber);
+                if (tapTimeout) {
+                    clearTimeout(tapTimeout);
+                    tapTimeout = null;
+                    // Это двойной тап
+                    if (blockNumber <= 12) {
+                        toggleBackground(blockNumber);
+                    } else {
+                        toggleBackgroundSpecial(blockNumber);
+                    }
                 } else {
-                    toggleBackgroundSpecial(blockNumber);
+                    tapTimeout = setTimeout(() => {
+                        tapTimeout = null;
+                    }, 300); // интервал для двойного нажатия
                 }
             });
 
@@ -269,3 +280,4 @@
     </script>
 </body>
 </html>
+
