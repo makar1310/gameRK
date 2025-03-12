@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Игра</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background: url('img/map.png') no-repeat center center;
+            background-size: 66.66%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .block {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: grab;
+            border-radius: 10px;
+            user-select: none;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        .red { background-color: red; }
+        .black { background-color: black; }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 5px;
+            font-size: 24px;
+            background: white;
+            color: black;
+            padding: 5px;
+            border-radius: 5px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .image-block {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 10px;
+            position: absolute;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .image-block:nth-child(-n+12) {
+            top: 10px;
+            right: 10px;
+        }
+
+        .image-block:nth-child(n+13) {
+            bottom: 10px;
+            right: 10px;
+            background-image: url('img/12b.png');
+        }
+
+        .blocks-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        /* Мобильная версия */
+        @media (max-width: 768px) {
+            .block {
+                width: 120px;
+                height: 120px;
+                font-size: 16px;
+            }
+
+            .image-block {
+                width: 80px;
+                height: 80px;
+            }
+
+            .blocks-container {
+                left: 5px;
+                top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blocks-container">
+        <div class="block red">
+            Кубик 1
+            <button onclick="rollDice(this)">Бросок</button>
+            <div class="result">🎲</div>
+        </div>
+        <div class="block red">
+            Кубик 2
+            <button onclick="rollDice(this)">Бросок</button>
+            <div class="result">🎲</div>
+        </div>
+        <div class="block red">
+            Кубик 3
+            <button onclick="rollDice(this)">Бросок</button>
+            <div class="result">🎲</div>
+        </div>
+        <div class="block black">
+            Кубик 4
+            <button onclick="rollDice(this)">Бросок</button>
+            <div class="result">🎲</div>
+        </div>
+        <div class="block black">
+            Кубик 5
+            <button onclick="rollDice(this)">Бросок</button>
+            <div class="result">🎲</div>
+        </div>
+        <div class="block black">
+            Кубик 6
+            <button onclick="rollDice(this)">Бросок</button>
+            <div class="result">🎲</div>
+        </div>
+    </div>
+
+    <div class="image-block" id="block-1" style="background-image: url('img/1b.png');"></div>
+    <div class="image-block" id="block-2" style="background-image: url('img/2b.png');"></div>
+    <div class="image-block" id="block-3" style="background-image: url('img/3b.png');"></div>
+    <div class="image-block" id="block-4" style="background-image: url('img/4b.png');"></div>
+    <div class="image-block" id="block-5" style="background-image: url('img/5b.png');"></div>
+    <div class="image-block" id="block-6" style="background-image: url('img/6b.png');"></div>
+    <div class="image-block" id="block-7" style="background-image: url('img/7b.png');"></div>
+    <div class="image-block" id="block-8" style="background-image: url('img/8b.png');"></div>
+    <div class="image-block" id="block-9" style="background-image: url('img/9b.png');"></div>
+    <div class="image-block" id="block-10" style="background-image: url('img/10b.png');"></div>
+    <div class="image-block" id="block-11" style="background-image: url('img/11b.png');"></div>
+    <div class="image-block" id="block-12" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-13" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-14" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-15" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-16" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-17" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-18" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-19" style="background-image: url('img/12b.png');"></div>
+    <div class="image-block" id="block-20" style="background-image: url('img/12b.png');"></div>
+
+    <script>
+        function rollDice(button) {
+            const result = button.nextElementSibling;
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            result.textContent = `🎲 ${randomNumber}`;
+        }
+
+        function toggleBackground(blockNumber) {
+            const block = document.getElementById(`block-${blockNumber}`);
+            const currentImage = block.style.backgroundImage;
+            const baseImage = `img/${blockNumber}.png`;
+            const newImage = currentImage.includes('b.png') ? baseImage : baseImage.replace('.png', 'b.png');
+            block.style.backgroundImage = `url('${newImage}')`;
+        }
+
+        function toggleBackgroundSpecial(blockNumber) {
+            const block = document.getElementById(`block-${blockNumber}`);
+            const currentImage = block.style.backgroundImage;
+            const baseImage = `img/${blockNumber}.png`;
+            const newImage = currentImage.includes('12b.png') ? baseImage : 'img/12b.png';
+            block.style.backgroundImage = `url('${newImage}')`;
+        }
+
+        document.querySelectorAll('.image-block').forEach(block => {
+            block.addEventListener('dblclick', () => {
+                const blockNumber = block.id.split('-')[1];
+                if (blockNumber <= 12) {
+                    toggleBackground(blockNumber);
+                } else {
+                    toggleBackgroundSpecial(blockNumber);
+                }
+            });
+
+            let shiftX, shiftY;
+
+            block.addEventListener('mousedown', (event) => {
+                shiftX = event.clientX - block.getBoundingClientRect().left;
+                shiftY = event.clientY - block.getBoundingClientRect().top;
+
+                block.style.position = 'absolute';
+
+                function moveAt(pageX, pageY) {
+                    block.style.left = pageX - shiftX + 'px';
+                    block.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+
+                block.addEventListener('mouseup', () => {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    block.onmouseup = null;
+                }, { once: true });
+
+                block.ondragstart = () => false;
+            });
+
+            // Поддержка для сенсорных экранов
+            block.addEventListener('touchstart', (event) => {
+                const touch = event.touches[0];
+                shiftX = touch.clientX - block.getBoundingClientRect().left;
+                shiftY = touch.clientY - block.getBoundingClientRect().top;
+
+                block.style.position = 'absolute';
+                event.preventDefault(); // Предотвратить стандартное поведение сенсорного события
+
+                function moveAt(pageX, pageY) {
+                    block.style.left = pageX - shiftX + 'px';
+                    block.style.top = pageY - shiftY + 'px';
+                }
+
+                function onTouchMove(event) {
+                    const touch = event.touches[0];
+                    moveAt(touch.pageX, touch.pageY);
+                }
+
+                document.addEventListener('touchmove', onTouchMove);
+
+                block.addEventListener('touchend', () => {
+                    document.removeEventListener('touchmove', onTouchMove);
+                }, { once: true });
+            });
+        });
+
+        function shuffleBlocks() {
+            const blocks = document.querySelectorAll('.image-block:nth-child(n+13)');
+            const container = document.body;
+
+            const shuffledBlocks = Array.from(blocks).sort(() => Math.random() - 0.5);
+
+            shuffledBlocks.forEach(block => {
+                container.appendChild(block);
+            });
+        }
+
+        window.onload = shuffleBlocks;
+    </script>
+</body>
+</html>
